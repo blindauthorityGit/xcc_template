@@ -1,10 +1,7 @@
-
-
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css");
 @import "./colors";
 @import "./fonts";
 @import "./animation";
-
 
 html,
 body {
@@ -13,7 +10,22 @@ body {
 }
 
 body {
-    background:$lightGrey
+    background: $darkBlue;
+    font-size: 0.85rem;
+}
+
+h1 {
+    font-weight: 600;
+    text-align: center;
+    font-size: 1.25rem;
+}
+h2 {
+    font-weight: 300;
+    text-align: center;
+    font-size: 1rem;
+    padding: 0;
+    margin: 0;
+    letter-spacing: 2px;
 }
 
 h3 {
@@ -26,18 +38,41 @@ h4 {
 }
 
 .box {
-    background: $orange;
-    border-radius: 15px;
-    min-height: 6rem;
+    // background: $orange;
+    // background: rgb(41, 12, 26);
+    background: $boxBlue;
+    border-radius: 10px;
+    min-height: 3.25rem;
+    color: $blueGrey;
+    // border: solid 1px $blueGrey;
+    position: relative;
+    overflow: hidden;
+    transition: background 400ms;
+    outline: 0;
+    border: 0;
+    cursor: pointer;
     i {
-        font-size: 2rem;
+        font-size: 1.25rem;
+        color: $blueGrey;
+        position: absolute;
+        right: 2rem;
     }
+}
+
+span.ripple {
+    position: absolute; /* The absolute position we mentioned earlier */
+    border-radius: 50%;
+    transform: scale(0);
+    animation: ripple 600ms linear;
+    background-color: rgba(255, 255, 255, 0.3);
 }
 
 .closer {
     position: fixed;
-    top: -13%;
+    top: -10%;
     font-size: 1.5rem;
+    z-index: 99;
+    color: $lightGrey;
 }
 
 #portrait {
@@ -47,31 +82,232 @@ h4 {
     margin: auto;
     left: 0;
     right: 0;
-    top: -10%;
+    top: -5%;
+    transition: all ease-in-out 250ms;
     img {
         max-width: 100%;
         max-height: 100%;
         object-fit: cover;
         border-radius: 20px;
-
+        transition: all ease-in-out 250ms;
+        z-index: 5;
     }
 }
 
 .modalBox {
     left: 0;
     background: white;
-    top: 20%;
-    border-radius: 20px;
-    height: 80%;
+    top: 12%;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    min-height: 88%;
     z-index: 9;
-    box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px;
+    box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.1) 0px 8px 24px,
+        rgba(17, 17, 26, 0.1) 0px 16px 56px;
 }
 .overlay {
     position: fixed;
-    background: #fd9644db;
+    background: $orange;
     width: 100%;
     height: 100%;
     left: 0;
-    z-index: 0;
+    z-index: 1;
+    top: 0;
+    opacity: 0.8;
+}
+.overlayBlack {
+    position: fixed;
+    background: #000000b0;
+    width: 100%;
+    height: 125%;
+    left: 0;
+    z-index: 2;
+    top: -25%;
+    transition: all ease-in-out 250ms;
 }
 
+.button {
+    border-radius: 10px;
+    text-align: center;
+    padding: 1rem;
+    font-weight: 700;
+    color: #fff;
+}
+
+.call {
+    background: $orange;
+    // border: solid thin $text;
+    border: solid thin $orange;
+    display: block;
+}
+
+.vcf {
+    // background: $innuendoGrey;
+    font-weight: 400 !important;
+    border: solid thin $textColor;
+    color: $textColor;
+}
+
+.socialMedia {
+    justify-content: center;
+    i {
+        font-size: 1.25rem;
+        color: $textColor;
+        opacity: 0.7;
+        margin: 1.5rem;
+    }
+}
+
+.heroImg {
+    width: 100%;
+    // height: 50%;
+    position: absolute;
+    margin: auto;
+    left: 0;
+    right: 0;
+    // top: -18%;
+    transition: all ease-in-out 250ms;
+
+    img {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: cover;
+        // border-radius: 20px;
+        transition: all ease-in-out 250ms;
+    }
+}
+
+.galleryInput {
+    // padding-top: 17rem;
+}
+
+.thumbnail {
+    width: 5.8rem;
+    height: 5.8rem;
+    transition: all ease-in-out 250ms;
+
+    img {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: cover;
+        // border-radius: 20px;
+        transition: all ease-in-out 250ms;
+        filter: grayscale(1);
+        opacity: 0.7;
+    }
+    .activeImg {
+        filter: none !important;
+        opacity: 1;
+    }
+}
+
+.thumbnail:nth-child(3n + 3) {
+    padding-right: 0 !important;
+}
+
+.heroFull {
+    z-index: 999;
+    position: relative;
+    img {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: cover;
+        // border-radius: 20px;
+        transition: all ease-in-out 250ms;
+    }
+}
+
+.zIndex-1 {
+    z-index: -1;
+}
+
+.video {
+    position: absolute;
+    left: 0;
+}
+
+.landingBg {
+    width: 100%;
+    height: 10rem;
+    // background: aqua;
+    top: 0;
+    left: 0;
+    position: absolute;
+    background-size: cover;
+}
+
+.logoWrapper {
+    margin-top: 6rem;
+    transition: all ease-in-out 200ms;
+
+    img {
+        z-index: 1;
+        border-radius: 50%;
+        box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+        border: solid 6px white;
+        background: white;
+        width: 120px;
+        height: 120px;
+        z-index: 3;
+        transition: all ease-in-out 200ms;
+    }
+}
+
+.socialMediaWrapper {
+    position: absolute;
+    left: 0;
+    right: 0;
+    z-index: 1;
+    // width: 100%;
+    i {
+        font-size: 1.25rem;
+        color: $lightGrey;
+        opacity: 0.7;
+        margin: 1.5rem;
+    }
+}
+
+.block {
+    font-size: 0.75rem;
+    text-align: center;
+    color: $text;
+}
+
+.controll {
+    position: fixed;
+    min-height: 0;
+    width: 100%;
+    .leftBtn {
+        position: absolute;
+        width: 15%;
+        height: 44%;
+    }
+}
+
+.white {
+    background: white;
+}
+
+.wrapperMain {
+    padding-top: 0.5rem;
+}
+
+.cta {
+    background: $redAccent;
+    border: 1px solid $redAccent;
+    color: #fff;
+    text-decoration: none;
+    i {
+        color: #fff;
+    }
+}
+
+.sponsoredImg,
+.logoText {
+    color: white;
+    opacity: 0.3;
+}
+
+.boxlink {
+    text-decoration: none;
+}

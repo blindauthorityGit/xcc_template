@@ -4,23 +4,20 @@ import sanityClient from "../client";
 
 import ModalBox from "./modal.js";
 import Overlay from "./overlay.js";
+
 import { createRipple } from "./controller/rippler.js";
 
-export default function Person(props) {
+export default function Youtube(props) {
     const [postData, setPostData] = useState(null);
     const [showModal, setShowModal] = useState(false);
-    const [vorname, setVorname] = useState(null);
-    const [nachname, setNachname] = useState(null);
     const [id, setId] = useState(null);
-    const [kat, setKat] = useState(null);
     const [animation, setAnimation] = useState("");
-
     const btnRef = useRef();
 
     useEffect(() => {
         sanityClient
             .fetch(
-                `*[_type == 'person']
+                `*[_type == 'youtube']
                   `
             )
             .then((data) => {
@@ -39,18 +36,10 @@ export default function Person(props) {
         console.log(postData);
     }
 
-    function checkClass() {}
-
-    function vornameSetter(i) {
-        setVorname(postData[i].vorname);
-        setShowModal(true);
-    }
-
     function showModalSwitch(i) {
+        console.log(btnRef);
         setTimeout(() => {
             setAnimation("slide-in-top");
-            setVorname(postData[i].vorname);
-            setNachname(postData[i].nachname);
             setId(i);
             setShowModal(true);
             console.log(showModal);
@@ -64,10 +53,8 @@ export default function Person(props) {
                 <div>
                     <ModalBox
                         show={showModal}
-                        vorname={vorname}
-                        nachname={nachname}
                         id={id}
-                        cat="person"
+                        cat="youtube"
                         animation={animation}
                         changeState={(state) => setShowModal(state)}
                     ></ModalBox>
@@ -78,16 +65,15 @@ export default function Person(props) {
                 postData.map((e, i) => (
                     <div className="col-12 py-2">
                         <div
-                            className="box p-2 d-flex justify-content-center align-items-center"
+                            className="box p-2 d-flex flex-column justify-content-center align-items-center"
                             data-id={i}
-                            data-cat="person"
+                            data-cat="youtube"
                             ref={btnRef}
                             onClick={() => {
                                 showModalSwitch(i);
                             }}
                         >
-                            <i class="bi bi-person-circle"></i>
-
+                            <i class="bi bi-film"></i>
                             <h2>{postData[i].titel}</h2>
                         </div>
                     </div>

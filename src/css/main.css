@@ -1,18 +1,34 @@
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css");
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;600;700;900&display=swap");
 .slide-in-top {
-  -webkit-animation: slide-in-top 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
-  animation: slide-in-top 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  -webkit-animation: slide-in-top 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  animation: slide-in-top 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
 }
 
 .slide-out-top {
-  -webkit-animation: slide-out-top 0.5s cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
-  animation: slide-out-top 0.5s cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
+  -webkit-animation: slide-out-top 0.25s cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
+  animation: slide-out-top 0.25s cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
 }
 
 .slide-out-left {
-  -webkit-animation: slide-out-left 0.5s cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
-  animation: slide-out-left 0.5s cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
+  -webkit-animation: slide-out-left 0.2s cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
+  animation: slide-out-left 0.2s cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
+}
+
+@-webkit-keyframes ripple {
+  to {
+    -webkit-transform: scale(4);
+            transform: scale(4);
+    opacity: 0;
+  }
+}
+
+@keyframes ripple {
+  to {
+    -webkit-transform: scale(4);
+            transform: scale(4);
+    opacity: 0;
+  }
 }
 
 @-webkit-keyframes slide-in-top {
@@ -100,7 +116,23 @@ body {
 }
 
 body {
-  background: #e6e6e6;
+  background: #161923;
+  font-size: 0.85rem;
+}
+
+h1 {
+  font-weight: 600;
+  text-align: center;
+  font-size: 1.25rem;
+}
+
+h2 {
+  font-weight: 300;
+  text-align: center;
+  font-size: 1rem;
+  padding: 0;
+  margin: 0;
+  letter-spacing: 2px;
 }
 
 h3 {
@@ -109,23 +141,47 @@ h3 {
 
 h4 {
   font-size: 0.85rem;
-  color: #778ca3;
+  color: #adb9c5;
 }
 
 .box {
-  background: #fd9644;
-  border-radius: 15px;
-  min-height: 6rem;
+  background: #272d45;
+  border-radius: 10px;
+  min-height: 3.25rem;
+  color: #adb9c5;
+  position: relative;
+  overflow: hidden;
+  -webkit-transition: background 400ms;
+  transition: background 400ms;
+  outline: 0;
+  border: 0;
+  cursor: pointer;
 }
 
 .box i {
-  font-size: 2rem;
+  font-size: 1.25rem;
+  color: #adb9c5;
+  position: absolute;
+  right: 2rem;
+}
+
+span.ripple {
+  position: absolute;
+  /* The absolute position we mentioned earlier */
+  border-radius: 50%;
+  -webkit-transform: scale(0);
+          transform: scale(0);
+  -webkit-animation: ripple 600ms linear;
+          animation: ripple 600ms linear;
+  background-color: rgba(255, 255, 255, 0.3);
 }
 
 .closer {
   position: fixed;
-  top: -13%;
+  top: -10%;
   font-size: 1.5rem;
+  z-index: 99;
+  color: #e6e6e6;
 }
 
 #portrait {
@@ -135,7 +191,9 @@ h4 {
   margin: auto;
   left: 0;
   right: 0;
-  top: -10%;
+  top: -5%;
+  -webkit-transition: all ease-in-out 250ms;
+  transition: all ease-in-out 250ms;
 }
 
 #portrait img {
@@ -144,14 +202,18 @@ h4 {
   -o-object-fit: cover;
      object-fit: cover;
   border-radius: 20px;
+  -webkit-transition: all ease-in-out 250ms;
+  transition: all ease-in-out 250ms;
+  z-index: 5;
 }
 
 .modalBox {
   left: 0;
   background: white;
-  top: 20%;
-  border-radius: 20px;
-  height: 80%;
+  top: 12%;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  min-height: 88%;
   z-index: 9;
   -webkit-box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px;
           box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px;
@@ -159,10 +221,218 @@ h4 {
 
 .overlay {
   position: fixed;
-  background: #fd9644db;
+  background: #262e38;
   width: 100%;
   height: 100%;
   left: 0;
-  z-index: 0;
+  z-index: 1;
+  top: 0;
+  opacity: 0.8;
+}
+
+.overlayBlack {
+  position: fixed;
+  background: #000000b0;
+  width: 100%;
+  height: 125%;
+  left: 0;
+  z-index: 2;
+  top: -25%;
+  -webkit-transition: all ease-in-out 250ms;
+  transition: all ease-in-out 250ms;
+}
+
+.button {
+  border-radius: 10px;
+  text-align: center;
+  padding: 1rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.call {
+  background: #262e38;
+  border: solid thin #262e38;
+  display: block;
+}
+
+.vcf {
+  font-weight: 400 !important;
+  border: solid thin #313131;
+  color: #313131;
+}
+
+.socialMedia {
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.socialMedia i {
+  font-size: 1.25rem;
+  color: #313131;
+  opacity: 0.7;
+  margin: 1.5rem;
+}
+
+.heroImg {
+  width: 100%;
+  position: absolute;
+  margin: auto;
+  left: 0;
+  right: 0;
+  -webkit-transition: all ease-in-out 250ms;
+  transition: all ease-in-out 250ms;
+}
+
+.heroImg img {
+  max-width: 100%;
+  max-height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -webkit-transition: all ease-in-out 250ms;
+  transition: all ease-in-out 250ms;
+}
+
+.thumbnail {
+  width: 5.8rem;
+  height: 5.8rem;
+  -webkit-transition: all ease-in-out 250ms;
+  transition: all ease-in-out 250ms;
+}
+
+.thumbnail img {
+  max-width: 100%;
+  max-height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -webkit-transition: all ease-in-out 250ms;
+  transition: all ease-in-out 250ms;
+  -webkit-filter: grayscale(1);
+          filter: grayscale(1);
+  opacity: 0.7;
+}
+
+.thumbnail .activeImg {
+  -webkit-filter: none !important;
+          filter: none !important;
+  opacity: 1;
+}
+
+.thumbnail:nth-child(3n + 3) {
+  padding-right: 0 !important;
+}
+
+.heroFull {
+  z-index: 999;
+  position: relative;
+}
+
+.heroFull img {
+  max-width: 100%;
+  max-height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -webkit-transition: all ease-in-out 250ms;
+  transition: all ease-in-out 250ms;
+}
+
+.zIndex-1 {
+  z-index: -1;
+}
+
+.video {
+  position: absolute;
+  left: 0;
+}
+
+.landingBg {
+  width: 100%;
+  height: 10rem;
+  top: 0;
+  left: 0;
+  position: absolute;
+  background-size: cover;
+}
+
+.logoWrapper {
+  margin-top: 6rem;
+  -webkit-transition: all ease-in-out 200ms;
+  transition: all ease-in-out 200ms;
+}
+
+.logoWrapper img {
+  z-index: 1;
+  border-radius: 50%;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+          box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+  border: solid 6px white;
+  background: white;
+  width: 120px;
+  height: 120px;
+  z-index: 3;
+  -webkit-transition: all ease-in-out 200ms;
+  transition: all ease-in-out 200ms;
+}
+
+.socialMediaWrapper {
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: 1;
+}
+
+.socialMediaWrapper i {
+  font-size: 1.25rem;
+  color: #e6e6e6;
+  opacity: 0.7;
+  margin: 1.5rem;
+}
+
+.block {
+  font-size: 0.75rem;
+  text-align: center;
+  color: "Poppins", sans-serif;
+}
+
+.controll {
+  position: fixed;
+  min-height: 0;
+  width: 100%;
+}
+
+.controll .leftBtn {
+  position: absolute;
+  width: 15%;
+  height: 44%;
+}
+
+.white {
+  background: white;
+}
+
+.wrapperMain {
+  padding-top: 0.5rem;
+}
+
+.cta {
+  background: #7f243d;
+  border: 1px solid #7f243d;
+  color: #fff;
+  text-decoration: none;
+}
+
+.cta i {
+  color: #fff;
+}
+
+.sponsoredImg,
+.logoText {
+  color: white;
+  opacity: 0.3;
+}
+
+.boxlink {
+  text-decoration: none;
 }
 /*# sourceMappingURL=main.css.map */

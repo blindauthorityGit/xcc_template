@@ -3,6 +3,9 @@ import { BrowserRouter, Route, Link } from "react-router-dom";
 import sanityClient from "../client";
 
 import ModalPerson from "./modalContent/modalPerson.js";
+import ModalGallery from "./modalContent/modalGallery";
+import ModalYoutube from "./modalContent/modalYoutube";
+import Carousel from "./modalContent/carousel";
 
 export default function ModalBox(props) {
     const [postData, setPostData] = useState(null);
@@ -11,7 +14,10 @@ export default function ModalBox(props) {
     const [myId, setMyId] = useState(props.id);
     const [categourie, setCategourie] = useState(props.cat);
 
+    const [firstImg, setFirstImg] = useState(props.firstImg);
+
     useEffect(() => {
+        window.scrollTo(0, 0);
         sanityClient
             .fetch(
                 `*[_type == 'person'] {
@@ -36,7 +42,7 @@ export default function ModalBox(props) {
         setAnimationnu("slide-out-top");
         setTimeout(() => {
             props.changeState(false);
-        }, 400);
+        }, 300);
         // setShowModalnu(false);
     }
 
@@ -48,6 +54,8 @@ export default function ModalBox(props) {
                         <i class="bi bi-caret-left"></i>
                     </div>
                     {categourie == "person" && <ModalPerson id={myId}></ModalPerson>}
+                    {categourie == "gallery" && <ModalGallery id={myId}></ModalGallery>}
+                    {categourie == "youtube" && <ModalYoutube id={myId}></ModalYoutube>}
                     {/* <h2>HALLO</h2>
                     <h2>
                         {props.vorname} {props.nachname}
