@@ -64,10 +64,10 @@ export default function ModalBox(props) {
 
     function imageSmaller(e) {
         let container = e.target.parentElement;
-        container.style.width = "7rem";
-        container.style.height = "7rem";
+        container.style.width = "8rem";
+        container.style.height = "8rem";
         // container.style.top = "-10%";
-        container.children[0].style.borderRadius = "20px";
+        container.children[0].style.borderRadius = "50%";
         setshowOverlay(false);
     }
 

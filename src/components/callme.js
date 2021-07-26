@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { BrowserRouter, Route, Link } from "react-router-dom";
 import sanityClient from "../client";
 
@@ -8,6 +8,8 @@ import Overlay from "./overlay.js";
 export default function Person(props) {
     const [postData, setPostData] = useState(null);
 
+    const btnRef = useRef();
+
     useEffect(() => {
         sanityClient
             .fetch(
@@ -16,6 +18,43 @@ export default function Person(props) {
             )
             .then((data) => {
                 setPostData(data);
+                data.map((e, i) => {
+                    console.log(btnRef.current);
+                    switch (e.colorlist.title) {
+                        case "Rot":
+                            btnRef.current.style.color = "white";
+                            btnRef.current.children[0].style.color = "white";
+
+                            break;
+                        case "Blau":
+                            btnRef.current.style.color = "#adb9c5";
+                            btnRef.current.children[0].style.color = "#adb9c5";
+
+                            break;
+                        case "Orange":
+                            btnRef.current.style.color = "#313131";
+                            btnRef.current.children[0].style.color = "#313131";
+                            break;
+                        case "Gruen":
+                            btnRef.current.style.color = "#313131";
+                            btnRef.current.children[0].style.color = "#313131";
+                            break;
+                        case "Hellgrau":
+                            btnRef.current.style.color = "#313131";
+                            btnRef.current.children[0].style.color = "#313131";
+                            break;
+                        case "Schwarz":
+                            btnRef.current.style.color = "#adb9c5";
+                            btnRef.current.children[0].style.color = "#adb9c5";
+                            break;
+                        case "Weiss":
+                            btnRef.current.style.color = "313131";
+                            btnRef.current.children[0].style.color = "#313131";
+                            break;
+                    }
+                    btnRef.current.style.background = e.colorlist.value;
+                    btnRef.current.style.borderColor = e.colorlist.value;
+                });
             })
             .catch(console.error);
     }, []);
@@ -30,6 +69,7 @@ export default function Person(props) {
                             className="box p-2 d-flex justify-content-center align-items-center cta"
                             data-id={i}
                             data-cat="call"
+                            ref={btnRef}
                         >
                             <i class="bi bi-telephone"></i>
 

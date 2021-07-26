@@ -185,8 +185,8 @@ span.ripple {
 }
 
 #portrait {
-  width: 7rem;
-  height: 7rem;
+  width: 8rem;
+  height: 8rem;
   position: absolute;
   margin: auto;
   left: 0;
@@ -201,7 +201,7 @@ span.ripple {
   max-height: 100%;
   -o-object-fit: cover;
      object-fit: cover;
-  border-radius: 20px;
+  border-radius: 50%;
   -webkit-transition: all ease-in-out 250ms;
   transition: all ease-in-out 250ms;
   z-index: 5;

@@ -20,6 +20,7 @@ export default function Links(props) {
                 `*[_type == 'link']{
                     display,
                     title,
+                    colorlist,
                     "file": file.asset->url,
                     url
                   }
@@ -29,6 +30,42 @@ export default function Links(props) {
                 setPostData(data);
                 console.log(data);
                 btnRef.current.addEventListener("click", createRipple);
+                data.map((e, i) => {
+                    console.log(btnRef.current);
+                    switch (e.colorlist.title) {
+                        case "Rot":
+                            btnRef.current.style.color = "white";
+                            btnRef.current.children[0].style.color = "white";
+
+                            break;
+                        case "Blau":
+                            btnRef.current.style.color = "#adb9c5";
+                            btnRef.current.children[0].style.color = "#adb9c5";
+
+                            break;
+                        case "Orange":
+                            btnRef.current.style.color = "#313131";
+                            btnRef.current.children[0].style.color = "#313131";
+                            break;
+                        case "Gruen":
+                            btnRef.current.style.color = "#313131";
+                            btnRef.current.children[0].style.color = "#313131";
+                            break;
+                        case "Hellgrau":
+                            btnRef.current.style.color = "#313131";
+                            btnRef.current.children[0].style.color = "#313131";
+                            break;
+                        case "Schwarz":
+                            btnRef.current.style.color = "#adb9c5";
+                            btnRef.current.children[0].style.color = "#adb9c5";
+                            break;
+                        case "Weiss":
+                            btnRef.current.style.color = "313131";
+                            btnRef.current.children[0].style.color = "#313131";
+                            break;
+                    }
+                    btnRef.current.style.background = e.colorlist.value;
+                });
             })
             // .then((data) => console.log(data))
             .catch(console.error);

@@ -27,6 +27,43 @@ export default function Person(props) {
                 setPostData(data);
                 console.log(data);
                 btnRef.current.addEventListener("click", createRipple);
+                data.map((e, i) => {
+                    console.log(btnRef.current.children[0].style.color);
+                    switch (e.colorlist.title) {
+                        case "Rot":
+                            btnRef.current.style.color = "white";
+                            btnRef.current.children[0].style.color = "white";
+
+                            break;
+                        case "Blau":
+                            btnRef.current.style.color = "#adb9c5";
+                            btnRef.current.children[0].style.color = "#adb9c5";
+
+                            break;
+                        case "Orange":
+                            btnRef.current.style.color = "#313131";
+                            btnRef.current.children[0].style.color = "#313131";
+                            break;
+                        case "Gruen":
+                            btnRef.current.style.color = "#313131";
+                            btnRef.current.children[0].style.color = "#313131";
+                            break;
+                        case "Hellgrau":
+                            btnRef.current.style.color = "#313131";
+                            btnRef.current.children[0].style.color = "#313131";
+                            break;
+                        case "Schwarz":
+                            btnRef.current.style.color = "#adb9c5";
+                            btnRef.current.children[0].style.color = "#adb9c5";
+                            break;
+                        case "Weiss":
+                            btnRef.current.style.color = "313131";
+                            btnRef.current.children[0].style.color = "#313131";
+                            break;
+                    }
+                    btnRef.current.style.background = e.colorlist.value;
+                });
+                // btnRef.current.style.background = data[0].color;
             })
             // .then((data) => console.log(data))
             .catch(console.error);
@@ -57,6 +94,11 @@ export default function Person(props) {
         }, 200);
     }
 
+    function colorMe(e, i) {
+        // e.style.background = postData[i].color;
+        console.log(e, i);
+    }
+
     return (
         <div className="row">
             {/* <button onClick={showData}>SHOW ME</button> */}
@@ -77,6 +119,7 @@ export default function Person(props) {
             {postData &&
                 postData.map((e, i) => (
                     <div className="col-12 py-2">
+                        {colorMe(e, i)}
                         <div
                             className="box p-2 d-flex justify-content-center align-items-center"
                             data-id={i}
