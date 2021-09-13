@@ -59,6 +59,7 @@ export default function Person(props) {
                         case "Weiss":
                             btnRef.current.style.color = "313131";
                             btnRef.current.children[0].style.color = "#313131";
+                            btnRef.current.children[1].style.color = "#313131";
                             break;
                     }
                     btnRef.current.style.background = e.colorlist.value;
@@ -100,7 +101,7 @@ export default function Person(props) {
     }
 
     return (
-        <div className="row">
+        <>
             {/* <button onClick={showData}>SHOW ME</button> */}
             {showModal && (
                 <div>
@@ -135,6 +136,6 @@ export default function Person(props) {
                         </div>
                     </div>
                 ))}
-        </div>
+        </>
     );
 }

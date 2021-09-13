@@ -5,28 +5,21 @@ import sanityClient from "../client";
 import ModalBox from "./modal.js";
 import Overlay from "./overlay.js";
 
-import { createRipple } from "./controller/rippler.js";
-
-export default function Gallery(props) {
+export default function Email(props) {
     const [postData, setPostData] = useState(null);
-    const [showModal, setShowModal] = useState(false);
-    const [id, setId] = useState(null);
-    const [animation, setAnimation] = useState("");
 
     const btnRef = useRef();
 
     useEffect(() => {
         sanityClient
             .fetch(
-                `*[_type == 'gallery']
+                `*[_type == 'emailContact']
                   `
             )
             .then((data) => {
                 setPostData(data);
-                console.log(data);
-                btnRef.current.addEventListener("click", createRipple);
                 data.map((e, i) => {
-                    console.log(btnRef.current.children[0].style.color);
+                    console.log(btnRef.current);
                     switch (e.colorlist.title) {
                         case "Rot":
                             btnRef.current.style.color = "white";
@@ -60,58 +53,29 @@ export default function Gallery(props) {
                             break;
                     }
                     btnRef.current.style.background = e.colorlist.value;
+                    btnRef.current.style.borderColor = e.colorlist.value;
                 });
             })
-            // .then((data) => console.log(data))
             .catch(console.error);
-        console.log(postData);
-
-        // document.querySelector("#test").addEventListener("click", showData);
     }, []);
-
-    function showData() {
-        console.log(postData);
-    }
-
-    function showModalSwitch(i) {
-        setTimeout(() => {
-            setAnimation("slide-in-top");
-            setId(i);
-            setShowModal(true);
-            console.log(showModal);
-        }, 200);
-    }
 
     return (
         <>
-            {/* <button onClick={showData}>SHOW ME</button> */}
-            {showModal && (
-                <div>
-                    <ModalBox
-                        show={showModal}
-                        id={id}
-                        cat="gallery"
-                        animation={animation}
-                        changeState={(state) => setShowModal(state)}
-                    ></ModalBox>
-                    <Overlay></Overlay>
-                </div>
-            )}
             {postData &&
                 postData.map((e, i) => (
-                    <div className="col-12 py-2">
-                        <div
-                            className="box p-2 d-flex flex-column justify-content-center align-items-center"
+                    <div key={i} className={`${postData[i].box ? "col-6" : "col-12"} py-2 boxWrapper`}>
+                        <a
+                            href={`mailto:${postData[i].email}`}
+                            className="box p-2 d-flex justify-content-center align-items-center cta"
                             data-id={i}
-                            data-cat="gallery"
+                            data-cat="call"
                             ref={btnRef}
-                            onClick={() => {
-                                showModalSwitch(i);
-                            }}
+                            key={`box${i}`}
                         >
-                            <i class="bi bi-images"></i>
+                            <i class="bi bi-envelope"></i>
+
                             <h2>{postData[i].title}</h2>
-                        </div>
+                        </a>
                     </div>
                 ))}
         </>

@@ -5,6 +5,8 @@ import imageUrlBuilder from "@sanity/image-url";
 
 import VCFGenerator from "../vcf/vcf-generator";
 
+import defaultPerson from "../../assets/imgs/person-fill.svg";
+
 export default function ModalBox(props) {
     const [postData, setPostData] = useState(null);
     const [showModalnu, setShowModalnu] = useState(props.show);
@@ -57,7 +59,7 @@ export default function ModalBox(props) {
         let container = e.target.parentElement;
         container.style.width = "85vw";
         container.style.height = "60vh";
-        container.style.top = "-5%";
+        container.style.top = "-8%";
         container.children[0].style.borderRadius = "0";
         setshowOverlay(true);
     }
@@ -87,23 +89,34 @@ export default function ModalBox(props) {
             {postData && (
                 <div className="container">
                     <div className="d-flex justify-content-center" id="portrait">
-                        {showOverlay ? (
+                        {!postData[props.id].poster && (
                             <img
-                                src={urlFor(postData[props.id].poster)}
+                                src={defaultPerson}
                                 onClick={(e) => {
                                     imageSmaller(e);
                                 }}
                                 alt="Profilbild"
                             />
-                        ) : (
-                            <img
-                                src={urlFor(postData[props.id].poster)}
-                                onClick={(e) => {
-                                    imageBigger(e);
-                                }}
-                                alt="Profilbild"
-                            />
                         )}
+
+                        {postData[props.id].poster &&
+                            (showOverlay ? (
+                                <img
+                                    src={urlFor(postData[props.id].poster)}
+                                    onClick={(e) => {
+                                        imageSmaller(e);
+                                    }}
+                                    alt="Profilbild"
+                                />
+                            ) : (
+                                <img
+                                    src={urlFor(postData[props.id].poster)}
+                                    onClick={(e) => {
+                                        imageBigger(e);
+                                    }}
+                                    alt="Profilbild"
+                                />
+                            ))}
                     </div>
                     <div className="mainText text-center mt-5">
                         <h3 className="pt-5">

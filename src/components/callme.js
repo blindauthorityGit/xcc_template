@@ -60,10 +60,10 @@ export default function Person(props) {
     }, []);
 
     return (
-        <div className="row">
+        <>
             {postData &&
                 postData.map((e, i) => (
-                    <div className="col-12 py-2">
+                    <div className={`${postData[i].box ? "col-6" : "col-12"} py-2 boxWrapper`}>
                         <a
                             href={`tel:${postData[i].phone}`}
                             className="box p-2 d-flex justify-content-center align-items-center cta"
@@ -77,6 +77,6 @@ export default function Person(props) {
                         </a>
                     </div>
                 ))}
-        </div>
+        </>
     );
 }

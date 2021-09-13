@@ -10,27 +10,27 @@ import Youtube from "./components/youtube.js";
 import Settings from "./components/settings.js";
 import Call from "./components/callme.js";
 import Links from "./components/link.js";
+import Email from "./components/email.js";
 
 import Sponsored from "./components/sponsored.js";
 
 function App() {
-    useEffect(() => {
-        // let arr = Array.from(document.getElementsByClassName("box"));
-        // let len = arr.length;
-        // arr[len - 1].classList.add("mb-5");
-    }, []);
+    useEffect(() => {}, []);
 
     return (
-        <div className="container-fluid">
+        <div className="container-fluid position-relative">
             <div className="">
                 <Settings></Settings>
             </div>
             <div className="wrapperMain">
-                <Call></Call>
-                <Person></Person>
-                <Gallery></Gallery>
-                <Youtube></Youtube>
-                <Links></Links>
+                <div className="row">
+                    <Gallery></Gallery>
+                    <Youtube></Youtube>
+                    <Links></Links>
+                    <Person></Person>
+                    <Email></Email>
+                    <Call></Call>
+                </div>
             </div>
             <Sponsored></Sponsored>
         </div>

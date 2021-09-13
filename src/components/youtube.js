@@ -83,7 +83,7 @@ export default function Youtube(props) {
     }
 
     return (
-        <div className="row">
+        <>
             {/* <button onClick={showData}>SHOW ME</button> */}
             {showModal && (
                 <div>
@@ -114,6 +114,6 @@ export default function Youtube(props) {
                         </div>
                     </div>
                 ))}
-        </div>
+        </>
     );
 }

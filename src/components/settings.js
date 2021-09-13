@@ -13,6 +13,7 @@ export default function Settings(props) {
     const BlockContent = require("@sanity/block-content-to-react");
     const [showOverlay, setshowOverlay] = useState(false);
     const landingBg = useRef();
+    const [fullBg, setFullBg] = useState(false);
 
     const builder = imageUrlBuilder(sanityClient);
 
@@ -31,45 +32,47 @@ export default function Settings(props) {
                 setPostData(data);
                 console.log(data);
                 landingBg.current.style.backgroundImage = "url(" + urlFor(data[1].backgroundUpload) + ")";
+
                 document.body.style.background = data[1].colorlist.value;
+                setFullBg(data[1].fullBG);
             })
             .catch(console.error);
     }, []);
 
     function imageBigger(e) {
-        console.log(e.target.parentElement.children[0]);
-        let container = e.target.parentElement;
-        container.style.position = "absolute";
-        container.style.width = "10rem";
-        container.style.height = "10rem";
-        container.style.top = "10%";
-        container.style.left = "0";
-        container.style.right = "0";
-        container.style.margin = "auto";
-        container.children[0].style.borderRadius = "0";
-        console.log(e);
-        e.target.style.width = "100%";
-        e.target.style.height = "100%";
-        setshowOverlay(true);
+        // console.log(e.target.parentElement.children[0]);
+        // let container = e.target.parentElement;
+        // container.style.position = "absolute";
+        // container.style.width = "10rem";
+        // container.style.height = "10rem";
+        // container.style.top = "10%";
+        // container.style.left = "0";
+        // container.style.right = "0";
+        // container.style.margin = "auto";
+        // container.children[0].style.borderRadius = "0";
+        // console.log(e);
+        // e.target.style.width = "100%";
+        // e.target.style.height = "100%";
+        // setshowOverlay(true);
     }
 
     function imageSmaller(e) {
-        console.log(e.target.parentElement.children[0]);
-        let container = e.target.parentElement;
-        container.style.position = "relative";
-        container.style.width = "100%";
-        container.style.height = "auto";
-        container.style.top = "0";
-        // container.style.marginBottom = "6rem";
-        container.style.marginTop = "6rem";
-        e.target.style.width = "auto";
-        e.target.style.height = "auto";
-        container.children[0].style.borderRadius = "20px";
-        setshowOverlay(false);
+        // console.log(e.target.parentElement.children[0]);
+        // let container = e.target.parentElement;
+        // container.style.position = "relative";
+        // container.style.width = "100%";
+        // container.style.height = "auto";
+        // container.style.top = "0";
+        // // container.style.marginBottom = "6rem";
+        // container.style.marginTop = "6rem";
+        // e.target.style.width = "auto";
+        // e.target.style.height = "auto";
+        // container.children[0].style.borderRadius = "20px";
+        // setshowOverlay(false);
     }
 
     return (
-        <div className="row white">
+        <div className="row">
             {showOverlay && <div className="overlayBlack slide-in-top" id="overlayBlack"></div>}
             {postData && (
                 <span>
@@ -103,19 +106,20 @@ export default function Settings(props) {
                                 <img src={urlFor(postData[0].logo).width(120).height(120)} alt="" />
                             </div>
                         )} */}
-                        {postData[1].logoPlacement == "left" && (
+                        {postData[0].logoPlacement == "left" && (
                             <div className="logoWrapper d-flex">
                                 <img src={urlFor(postData[1].logoUpload).width(120).height(120)} alt="" />
                             </div>
                         )}
-                        {postData[1].logoPlacement == "right" && (
+                        {postData[0].logoPlacement == "right" && (
                             <div className="logoWrapper d-flex justify-content-end">
                                 <img src={urlFor(postData[1].logoUpload).width(120).height(120)} alt="" />
                             </div>
                         )}
-                        <div ref={landingBg} className="landingBg" id="landingBg"></div>
+                        <div ref={landingBg} className={`landingBg ${fullBg ? "fullBG" : ""}`} id="landingBg"></div>
+                        {console.log(postData[1].fullBG, "hier")}
                         <h1 className="mt-3">{postData[1].headline}</h1>
-                        <div className="mt-3 mb-5 block">
+                        <div className={`mt-3 mb-5 block ${fullBg ? "d-none" : ""}`}>
                             <BlockContent blocks={postData[1].richtext}></BlockContent>
                         </div>
                         {/* <hr /> */}

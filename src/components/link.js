@@ -12,65 +12,109 @@ export default function Links(props) {
     const [showModal, setShowModal] = useState(false);
     const [id, setId] = useState(null);
     const [animation, setAnimation] = useState("");
+    const [box, setBox] = useState([]);
+    const [bg, setBg] = useState({});
     const btnRef = useRef();
 
     useEffect(() => {
         sanityClient
             .fetch(
-                `*[_type == 'link']{
+                `*[_type == 'link'] | order(order asc) {
                     display,
                     title,
                     colorlist,
                     "file": file.asset->url,
-                    url
+                    url,
+                    box,
+                    "hintergrundbild": hintergrundbild.asset->url,
+                    showTitle
                   }
                   `
             )
             .then((data) => {
                 setPostData(data);
                 console.log(data);
+                console.log(data[0].box);
                 btnRef.current.addEventListener("click", createRipple);
+                document.querySelector(".loaderWrapper").classList.add("fade-out");
+                setTimeout(() => {
+                    document.querySelector(".loaderWrapper").style.zIndex = -1;
+                }, 1000);
+
                 data.map((e, i) => {
-                    console.log(btnRef.current);
+                    console.log(e.hintergrundbild);
+
+                    setBox((oldArray) => [...oldArray, data[i].box]);
+                    console.log(box);
                     switch (e.colorlist.title) {
                         case "Rot":
                             btnRef.current.style.color = "white";
                             btnRef.current.children[0].style.color = "white";
+                            setBg({
+                                background: e.colorlist.value,
+                                backgroundImage: "url(" + e.hintergrundbild + ")",
+                                color: "white",
+                            });
 
                             break;
                         case "Blau":
                             btnRef.current.style.color = "#adb9c5";
                             btnRef.current.children[0].style.color = "#adb9c5";
+                            setBg({
+                                background: e.colorlist.value,
+                                backgroundImage: "url(" + e.hintergrundbild + ")",
+                                color: "#adb9c5",
+                            });
 
                             break;
                         case "Orange":
                             btnRef.current.style.color = "#313131";
                             btnRef.current.children[0].style.color = "#313131";
+                            setBg({
+                                background: e.colorlist.value,
+                                color: "#313131",
+                            });
                             break;
                         case "Gruen":
                             btnRef.current.style.color = "#313131";
                             btnRef.current.children[0].style.color = "#313131";
+                            setBg({
+                                background: e.colorlist.value,
+                                color: "#313131",
+                            });
                             break;
                         case "Hellgrau":
                             btnRef.current.style.color = "#313131";
                             btnRef.current.children[0].style.color = "#313131";
+                            setBg({
+                                background: e.colorlist.value,
+                                color: "#313131",
+                            });
                             break;
                         case "Schwarz":
                             btnRef.current.style.color = "#adb9c5";
                             btnRef.current.children[0].style.color = "#adb9c5";
+                            setBg({
+                                background: e.colorlist.value,
+                                color: "#adb9c5",
+                            });
                             break;
                         case "Weiss":
                             btnRef.current.style.color = "313131";
                             btnRef.current.children[0].style.color = "#313131";
+                            setBg({
+                                background: e.colorlist.value,
+                                color: "#313131",
+                            });
                             break;
                     }
                     btnRef.current.style.background = e.colorlist.value;
+                    btnRef.current.style.background = e.colorlist.value;
+
+                    console.log(box);
                 });
             })
-            // .then((data) => console.log(data))
             .catch(console.error);
-
-        // document.querySelector("#test").addEventListener("click", showData);
     }, []);
 
     function showData() {
@@ -88,8 +132,7 @@ export default function Links(props) {
     }
 
     return (
-        <div className="row">
-            {/* <button onClick={showData}>SHOW ME</button> */}
+        <>
             {showModal && (
                 <div>
                     <ModalBox
@@ -104,7 +147,7 @@ export default function Links(props) {
             )}
             {postData &&
                 postData.map((e, i) => (
-                    <div className="col-12 py-2">
+                    <div className={`${postData[i].box ? "col-6" : "col-12"} py-2 boxWrapper`}>
                         {postData[i].display === "file" && (
                             <a
                                 href={postData[i].file}
@@ -112,12 +155,17 @@ export default function Links(props) {
                                 data-id={i}
                                 data-cat="link"
                                 ref={btnRef}
-                                // onClick={() => {
-                                //     showModalSwitch(i);
-                                // }}
+                                style={bg}
+                                download
+                                target="_blank"
                             >
-                                <i class="bi bi-link"></i>
-                                <h2>{postData[i].title}</h2>
+                                {postData[i].showTitle && (
+                                    <span>
+                                        <i class="bi bi-link"></i>
+                                        <h2>{postData[i].title}</h2>
+                                    </span>
+                                )}
+                                <img src={postData[i].hintergrundbild}></img>
                             </a>
                         )}
                         {postData[i].display === "link" && (
@@ -127,17 +175,20 @@ export default function Links(props) {
                                 data-id={i}
                                 data-cat="link"
                                 ref={btnRef}
-                                // onClick={() => {
-                                //     showModalSwitch(i);
-                                // }}
+                                style={bg}
                             >
-                                <i class="bi bi-link"></i>
-                                <h2>{postData[i].title}</h2>
+                                {postData[i].showTitle && (
+                                    <span>
+                                        <i class="bi bi-link"></i>
+                                        <h2>{postData[i].title}</h2>
+                                    </span>
+                                )}
+
+                                <img src={postData[i].hintergrundbild}></img>
                             </a>
                         )}
-                        {/* {postData[i].display === "link" && <a href={postData[i].url}>LINK</a>} */}
                     </div>
                 ))}
-        </div>
+        </>
     );
 }
