@@ -15,7 +15,9 @@ import Email from "./components/email.js";
 import Sponsored from "./components/sponsored.js";
 
 function App() {
-    useEffect(() => {}, []);
+    useEffect(() => {
+        console.log("DOM LOADED");
+    }, []);
 
     return (
         <div className="container-fluid position-relative">
@@ -24,10 +26,10 @@ function App() {
             </div>
             <div className="wrapperMain">
                 <div className="row">
+                    <Person></Person>
                     <Gallery></Gallery>
                     <Youtube></Youtube>
                     <Links></Links>
-                    <Person></Person>
                     <Email></Email>
                     <Call></Call>
                 </div>

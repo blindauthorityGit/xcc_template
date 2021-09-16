@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from "react";
-import { BrowserRouter, Route, Link } from "react-router-dom";
 import sanityClient from "../client";
 
 import ModalBox from "./modal.js";
@@ -25,64 +24,9 @@ export default function Person(props) {
             )
             .then((data) => {
                 setPostData(data);
-                console.log(data);
-                btnRef.current.addEventListener("click", createRipple);
-                data.map((e, i) => {
-                    console.log(btnRef.current.children[0].style.color);
-                    switch (e.colorlist.title) {
-                        case "Rot":
-                            btnRef.current.style.color = "white";
-                            btnRef.current.children[0].style.color = "white";
-
-                            break;
-                        case "Blau":
-                            btnRef.current.style.color = "#adb9c5";
-                            btnRef.current.children[0].style.color = "#adb9c5";
-
-                            break;
-                        case "Orange":
-                            btnRef.current.style.color = "#313131";
-                            btnRef.current.children[0].style.color = "#313131";
-                            break;
-                        case "Gruen":
-                            btnRef.current.style.color = "#313131";
-                            btnRef.current.children[0].style.color = "#313131";
-                            break;
-                        case "Hellgrau":
-                            btnRef.current.style.color = "#313131";
-                            btnRef.current.children[0].style.color = "#313131";
-                            break;
-                        case "Schwarz":
-                            btnRef.current.style.color = "#adb9c5";
-                            btnRef.current.children[0].style.color = "#adb9c5";
-                            break;
-                        case "Weiss":
-                            btnRef.current.style.color = "313131";
-                            btnRef.current.children[0].style.color = "#313131";
-                            btnRef.current.children[1].style.color = "#313131";
-                            break;
-                    }
-                    btnRef.current.style.background = e.colorlist.value;
-                });
-                // btnRef.current.style.background = data[0].color;
             })
-            // .then((data) => console.log(data))
             .catch(console.error);
-        console.log(postData);
-
-        // document.querySelector("#test").addEventListener("click", showData);
     }, []);
-
-    function showData() {
-        console.log(postData);
-    }
-
-    function checkClass() {}
-
-    function vornameSetter(i) {
-        setVorname(postData[i].vorname);
-        setShowModal(true);
-    }
 
     function showModalSwitch(i) {
         setTimeout(() => {
@@ -91,18 +35,11 @@ export default function Person(props) {
             setNachname(postData[i].nachname);
             setId(i);
             setShowModal(true);
-            console.log(showModal);
         }, 200);
-    }
-
-    function colorMe(e, i) {
-        // e.style.background = postData[i].color;
-        console.log(e, i);
     }
 
     return (
         <>
-            {/* <button onClick={showData}>SHOW ME</button> */}
             {showModal && (
                 <div>
                     <ModalBox
@@ -119,20 +56,35 @@ export default function Person(props) {
             )}
             {postData &&
                 postData.map((e, i) => (
-                    <div className="col-12 py-2">
-                        {colorMe(e, i)}
+                    <div
+                        className={`${postData[i].button_settings.box ? "col-6" : "col-12"} py-2 ${
+                            i % 2 === 0 ? "slide-in-left" : "slide-in-right"
+                        } `}
+                    >
                         <div
-                            className="box p-2 d-flex justify-content-center align-items-center"
+                            className={`${
+                                e.button_settings.colorlist.title === "Blau" ||
+                                e.button_settings.colorlist.title === "Schwarz" ||
+                                e.button_settings.colorlist.title === "Rot"
+                                    ? "bright-text"
+                                    : "dark-text"
+                            } ${
+                                e.button_settings.border ? "border-button" : ""
+                            } box p-2 d-flex justify-content-center align-items-center`}
                             data-id={i}
                             data-cat="person"
                             ref={btnRef}
-                            onClick={() => {
+                            style={{
+                                background: e.button_settings.colorlist.value,
+                            }}
+                            onClick={(e) => {
+                                createRipple(e);
                                 showModalSwitch(i);
                             }}
                         >
-                            <i class="bi bi-person-circle"></i>
+                            {e.button_settings.icon && <i class="bi bi-person-circle"></i>}
 
-                            <h2>{postData[i].titel}</h2>
+                            <h2>{postData[i].button_settings.titel}</h2>
                         </div>
                     </div>
                 ))}

@@ -2,7 +2,7 @@
   "name": "xcc",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://erikwuerkner.xcc-connect.com/",
+  "homepage": "https://sabocon.xcc-connect.com/",
   "dependencies": {
     "@sanity/block-content-to-react": "^3.0.0",
     "@sanity/client": "^2.13.0",

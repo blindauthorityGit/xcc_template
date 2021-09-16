@@ -7,8 +7,8 @@ export default function Person(props) {
     useEffect(() => {
         sanityClient
             .fetch(
-                `*[_type == 'siteSettings'] {
-                    socialmedia_global
+                `*[_type == 'person'] {
+                    socialmedia
                   }                  
                   `
             )
@@ -23,51 +23,50 @@ export default function Person(props) {
             {postData && (
                 // FACEBOOK
                 <div className="socialMedia d-flex  mb-3 mt-4">
-                    {postData[0].socialmedia_global != undefined && (
+                    {postData[props.id].socialmedia != undefined && (
                         <div className="facebook">
-                            {postData[0].socialmedia_global.facebook && (
-                                <a href={postData[0].socialmedia_global.facebook}>
+                            {postData[props.id].socialmedia.facebook && (
+                                <a href={postData[props.id].socialmedia.facebook}>
                                     <i class="bi bi-facebook"></i>
                                 </a>
                             )}
                         </div>
                     )}
                     {/* INSTAGRAM */}
-                    {postData[0].socialmedia_global != undefined && (
+                    {postData[props.id].socialmedia != undefined && (
                         <div className="instagram">
-                            {postData[0].socialmedia_global.instagram && (
-                                <a href={postData[0].socialmedia_global.instagram}>
+                            {postData[props.id].socialmedia.instagram && (
+                                <a href={postData[props.id].socialmedia.instagram}>
                                     <i class="bi bi-instagram"></i>
                                 </a>
                             )}
                         </div>
                     )}
                     {/* LINKEDIN */}
-                    {postData[0].socialmedia_global != undefined && (
+                    {postData[props.id].socialmedia != undefined && (
                         <div className="linkedin">
-                            {postData[0].socialmedia_global.linkedin && (
-                                <a href={postData[0].socialmedia_global.linkedin}>
+                            {postData[props.id].socialmedia.linkedin && (
+                                <a href={postData[props.id].socialmedia.linkedin}>
                                     <i class="bi bi-linkedin"></i>
                                 </a>
                             )}
                         </div>
                     )}
                     {/* TWITTER */}
-                    {postData[0].socialmedia_global != undefined && (
+                    {postData[props.id].socialmedia != undefined && (
                         <div className="twitter">
-                            {postData[0].socialmedia_global.twitter && (
-                                <a href={postData[0].socialmedia_global.twitter}>
+                            {postData[props.id].socialmedia.twitter && (
+                                <a href={postData[props.id].socialmedia.twitter}>
                                     <i class="bi bi-twitter"></i>
                                 </a>
                             )}
                         </div>
                     )}
                     {/* WHATSAPP */}
-                    {postData[0].socialmedia_global != undefined && (
+                    {postData[props.id].socialmedia != undefined && (
                         <div className="whatsapp">
-                            {postData[0].socialmedia_global.whatsapp && (
-                                <a href={`https://wa.me/${postData[0].socialmedia_global.whatsapp}`}>
-                                    {console.log(`https://wa.me/${postData[0].socialmedia_global.whatsapp}`)}
+                            {postData[props.id].socialmedia.whatsapp && (
+                                <a href={`https://wa.me/${postData[props.id].socialmedia.whatsapp}`}>
                                     <i class="bi bi-whatsapp"></i>
                                 </a>
                             )}

@@ -24,17 +24,22 @@ export default function Settings(props) {
     useEffect(() => {
         sanityClient
             .fetch(
-                `*[_type in  ['siteSettings','person']]
+                `*[_type == 'siteSettings']
 
                   `
             )
             .then((data) => {
                 setPostData(data);
-                console.log(data);
-                landingBg.current.style.backgroundImage = "url(" + urlFor(data[1].backgroundUpload) + ")";
+                console.log(data, "huhuh");
+                landingBg.current.style.backgroundImage = "url(" + urlFor(data[0].backgroundUpload) + ")";
 
-                document.body.style.background = data[1].colorlist.value;
-                setFullBg(data[1].fullBG);
+                document.body.style.background = data[0].colorlist.value;
+                setFullBg(data[0].fullBG);
+                document.querySelector(".loaderWrapper").classList.add("fade-out");
+                setTimeout(() => {
+                    document.querySelector(".loaderWrapper").style.zIndex = -1;
+                }, 1000);
+                console.log(data, "dihdohodi");
             })
             .catch(console.error);
     }, []);
@@ -80,14 +85,14 @@ export default function Settings(props) {
                         <Socialmedia></Socialmedia>
                     </div>
                     <div className="col-12 px-4">
-                        {postData[1].logoPlacement == "center" && (
-                            <div className="logoWrapper d-flex justify-content-center">
+                        {postData[0].logoPlacement == "center" && (
+                            <div className="logoWrapper d-flex justify-content-center scale-in-center">
                                 {showOverlay ? (
                                     <img
                                         onClick={(e) => {
                                             imageSmaller(e);
                                         }}
-                                        src={urlFor(postData[1].logoUpload)}
+                                        src={urlFor(postData[0].logoUpload)}
                                         alt=""
                                     />
                                 ) : (
@@ -95,7 +100,7 @@ export default function Settings(props) {
                                         onClick={(e) => {
                                             imageBigger(e);
                                         }}
-                                        src={urlFor(postData[1].logoUpload).width(120).height(120)}
+                                        src={urlFor(postData[0].logoUpload).width(120).height(120)}
                                         alt=""
                                     />
                                 )}
@@ -108,19 +113,22 @@ export default function Settings(props) {
                         )} */}
                         {postData[0].logoPlacement == "left" && (
                             <div className="logoWrapper d-flex">
-                                <img src={urlFor(postData[1].logoUpload).width(120).height(120)} alt="" />
+                                <img src={urlFor(postData[0].logoUpload).width(120).height(120)} alt="" />
                             </div>
                         )}
                         {postData[0].logoPlacement == "right" && (
                             <div className="logoWrapper d-flex justify-content-end">
-                                <img src={urlFor(postData[1].logoUpload).width(120).height(120)} alt="" />
+                                <img src={urlFor(postData[0].logoUpload).width(120).height(120)} alt="" />
                             </div>
                         )}
-                        <div ref={landingBg} className={`landingBg ${fullBg ? "fullBG" : ""}`} id="landingBg"></div>
-                        {console.log(postData[1].fullBG, "hier")}
-                        <h1 className="mt-3">{postData[1].headline}</h1>
+                        <div
+                            ref={landingBg}
+                            className={`landingBg ${fullBg ? "fullBG" : ""} fade-in`}
+                            id="landingBg"
+                        ></div>
+                        <h1 className="mt-3">{postData[0].headline}</h1>
                         <div className={`mt-3 mb-5 block ${fullBg ? "d-none" : ""}`}>
-                            <BlockContent blocks={postData[1].richtext}></BlockContent>
+                            <BlockContent blocks={postData[0].richtext}></BlockContent>
                         </div>
                         {/* <hr /> */}
                     </div>

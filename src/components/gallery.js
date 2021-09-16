@@ -23,43 +23,10 @@ export default function Gallery(props) {
             )
             .then((data) => {
                 setPostData(data);
-                console.log(data);
+                console.log(data, "GALERIE");
                 btnRef.current.addEventListener("click", createRipple);
                 data.map((e, i) => {
                     console.log(btnRef.current.children[0].style.color);
-                    switch (e.colorlist.title) {
-                        case "Rot":
-                            btnRef.current.style.color = "white";
-                            btnRef.current.children[0].style.color = "white";
-
-                            break;
-                        case "Blau":
-                            btnRef.current.style.color = "#adb9c5";
-                            btnRef.current.children[0].style.color = "#adb9c5";
-
-                            break;
-                        case "Orange":
-                            btnRef.current.style.color = "#313131";
-                            btnRef.current.children[0].style.color = "#313131";
-                            break;
-                        case "Gruen":
-                            btnRef.current.style.color = "#313131";
-                            btnRef.current.children[0].style.color = "#313131";
-                            break;
-                        case "Hellgrau":
-                            btnRef.current.style.color = "#313131";
-                            btnRef.current.children[0].style.color = "#313131";
-                            break;
-                        case "Schwarz":
-                            btnRef.current.style.color = "#adb9c5";
-                            btnRef.current.children[0].style.color = "#adb9c5";
-                            break;
-                        case "Weiss":
-                            btnRef.current.style.color = "313131";
-                            btnRef.current.children[0].style.color = "#313131";
-                            break;
-                    }
-                    btnRef.current.style.background = e.colorlist.value;
                 });
             })
             // .then((data) => console.log(data))
@@ -69,8 +36,8 @@ export default function Gallery(props) {
         // document.querySelector("#test").addEventListener("click", showData);
     }, []);
 
-    function showData() {
-        console.log(postData);
+    function showData(e) {
+        console.log(e);
     }
 
     function showModalSwitch(i) {
@@ -99,18 +66,34 @@ export default function Gallery(props) {
             )}
             {postData &&
                 postData.map((e, i) => (
-                    <div className="col-12 py-2">
+                    <div
+                        className={`${postData[i].button_settings.box ? "col-6" : "col-12"} py-2 ${
+                            i % 2 === 0 ? "slide-in-left" : "slide-in-right"
+                        } `}
+                    >
                         <div
-                            className="box p-2 d-flex flex-column justify-content-center align-items-center"
+                            className={`${
+                                e.button_settings.colorlist.title === "Blau" ||
+                                e.button_settings.colorlist.title === "Schwarz" ||
+                                e.button_settings.colorlist.title === "Rot"
+                                    ? "bright-text"
+                                    : "dark-text"
+                            } ${
+                                e.button_settings.border ? "border-button" : ""
+                            } box p-2 d-flex justify-content-center align-items-center`}
                             data-id={i}
                             data-cat="gallery"
-                            ref={btnRef}
-                            onClick={() => {
+                            key={i}
+                            style={{
+                                background: e.button_settings.colorlist.value,
+                            }}
+                            onClick={(e) => {
+                                createRipple(e);
                                 showModalSwitch(i);
                             }}
                         >
                             <i class="bi bi-images"></i>
-                            <h2>{postData[i].title}</h2>
+                            <h2>{postData[i].button_settings.titel}</h2>
                         </div>
                     </div>
                 ))}

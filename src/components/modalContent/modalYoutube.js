@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter, Route, Link } from "react-router-dom";
 import sanityClient from "../../client";
-import imageUrlBuilder from "@sanity/image-url";
 import YouTube from "react-youtube";
-import getYouTubeID from "get-youtube-id";
 
 export default function Youtube(props) {
     const [postData, setPostData] = useState(null);
@@ -16,18 +13,9 @@ export default function Youtube(props) {
     const [url, setUrl] = useState(null);
 
     const BlockContent = require("@sanity/block-content-to-react");
-
-    const imageStyle = {};
-
-    const builder = imageUrlBuilder(sanityClient);
-
     const [opts, setOpts] = useState(null);
 
     var getYouTubeID = require("get-youtube-id");
-
-    function urlFor(source) {
-        return builder.image(source);
-    }
 
     useEffect(() => {
         sanityClient
@@ -37,7 +25,6 @@ export default function Youtube(props) {
             )
             .then((data) => {
                 setPostData(data);
-                console.log(data);
                 setUrl(getYouTubeID(data[myId].url));
                 setOpts({
                     height: "390",
@@ -51,15 +38,6 @@ export default function Youtube(props) {
             })
             .catch(console.error);
     }, []);
-
-    function showData(e) {
-        console.log(e.target);
-    }
-
-    function getID() {
-        let URL = postData[myId].url;
-        return getYouTubeID(URL);
-    }
 
     return (
         <div>

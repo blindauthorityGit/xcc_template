@@ -1,22 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter, Route, Link } from "react-router-dom";
 import sanityClient from "../../client";
 import imageUrlBuilder from "@sanity/image-url";
-
 import VCFGenerator from "../vcf/vcf-generator";
-
 import defaultPerson from "../../assets/imgs/person-fill.svg";
 
 export default function ModalBox(props) {
     const [postData, setPostData] = useState(null);
-    const [showModalnu, setShowModalnu] = useState(props.show);
-    const [animationnu, setAnimationnu] = useState(props.animation);
-    const [myId, setMyId] = useState(props.id);
-    const [hasImg, sethasImg] = useState(null);
     const [showOverlay, setshowOverlay] = useState(false);
-
-    const imageStyle = {};
-
     const builder = imageUrlBuilder(sanityClient);
 
     function urlFor(source) {
@@ -35,25 +25,14 @@ export default function ModalBox(props) {
                       poster,
                     kontakt,
                     socialmedia
-                    
-                  
                   }
                   `
             )
             .then((data) => {
                 setPostData(data);
-                console.log(data);
             })
-            // .then((data) => console.log(data))
             .catch(console.error);
-        console.log(postData);
-
-        // document.querySelector("#test").addEventListener("click", showData);
     }, []);
-
-    function showData() {
-        console.log(postData);
-    }
 
     function imageBigger(e) {
         let container = e.target.parentElement;
@@ -68,21 +47,10 @@ export default function ModalBox(props) {
         let container = e.target.parentElement;
         container.style.width = "8rem";
         container.style.height = "8rem";
-        // container.style.top = "-10%";
         container.children[0].style.borderRadius = "50%";
         setshowOverlay(false);
     }
 
-    function close() {
-        setAnimationnu("slide-out-top");
-        setTimeout(() => {
-            props.changeState(false);
-        }, 200);
-        // setShowModalnu(false);
-    }
-    function checkstuff() {
-        console.log(postData[1].adresse != undefined);
-    }
     return (
         <div>
             {showOverlay && <div className="overlayBlack slide-in-top" id="overlayBlack"></div>}
@@ -124,7 +92,7 @@ export default function ModalBox(props) {
                         </h3>
                         <h4>{postData[props.id].position} </h4>
                     </div>
-
+                    {/* FACEBOOK */}
                     <div className="socialMedia d-flex  mb-3 mt-4">
                         {postData[props.id].socialmedia != undefined && (
                             <div className="facebook">
@@ -135,7 +103,7 @@ export default function ModalBox(props) {
                                 )}
                             </div>
                         )}
-
+                        {/* INSTAGRAM */}
                         {postData[props.id].socialmedia != undefined && (
                             <div className="instagram">
                                 {postData[props.id].socialmedia.instagram && (
@@ -145,6 +113,27 @@ export default function ModalBox(props) {
                                 )}
                             </div>
                         )}
+                        {/* LINKEDIN */}
+                        {postData[props.id].socialmedia != undefined && (
+                            <div className="linkedin">
+                                {postData[props.id].socialmedia.linkedin && (
+                                    <a href={postData[props.id].socialmedia.linkedin}>
+                                        <i class="bi bi-linkedin"></i>
+                                    </a>
+                                )}
+                            </div>
+                        )}
+                        {/* TWITTER */}
+                        {postData[props.id].socialmedia != undefined && (
+                            <div className="twitter">
+                                {postData[props.id].socialmedia.twitter && (
+                                    <a href={postData[props.id].socialmedia.twitter}>
+                                        <i class="bi bi-twitter"></i>
+                                    </a>
+                                )}
+                            </div>
+                        )}
+                        {/* WHATSAPP */}
                         {postData[props.id].socialmedia != undefined && (
                             <div className="whatsapp">
                                 {postData[props.id].socialmedia.whatsapp && (
@@ -186,7 +175,6 @@ export default function ModalBox(props) {
 
                     <div className="adresse text-center">
                         <br />
-                        <div className="left">{/* <i class="bi bi-house-door-fill"></i> */}</div>
                         <div className="right">
                             {postData[props.id].adresse != undefined && (
                                 <div className="strasse">
@@ -210,7 +198,6 @@ export default function ModalBox(props) {
 
                     <div className="row mt-4">
                         <div className="col-12 ">
-                            {/* <div className="vcf button">DOWNLOAD VCF</div>    */}
                             <VCFGenerator
                                 firstName={postData[props.id].vorname}
                                 lastName={postData[props.id].nachname}
@@ -224,11 +211,7 @@ export default function ModalBox(props) {
                             ></VCFGenerator>
                         </div>
                         <div className=" col-12 mt-2">
-                            <a
-                                href={`tel:${postData[props.id].kontakt.telefon}`}
-                                className="call button"
-                                // onClick={checkstuff}
-                            >
+                            <a href={`tel:${postData[props.id].kontakt.telefon}`} className="call button">
                                 <i class="bi bi-telephone me-2"></i>
                                 CALL
                             </a>

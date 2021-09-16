@@ -1,22 +1,22 @@
+/* eslint-disable jsx-a11y/alt-text */
 import React, { useState, useEffect, useRef } from "react";
-import { BrowserRouter, Route, Link } from "react-router-dom";
 import sanityClient from "../client";
-
 import ModalBox from "./modal.js";
 import Overlay from "./overlay.js";
-
 import { createRipple } from "./controller/rippler.js";
+import { color } from "./controller/colors.js";
 
 export default function Links(props) {
     const [postData, setPostData] = useState(null);
     const [showModal, setShowModal] = useState(false);
     const [id, setId] = useState(null);
     const [animation, setAnimation] = useState("");
-    const [box, setBox] = useState([]);
+    const [box, setBox] = useState(null);
     const [bg, setBg] = useState({});
     const btnRef = useRef();
 
     useEffect(() => {
+        console.log(color);
         sanityClient
             .fetch(
                 `*[_type == 'link'] | order(order asc) {
@@ -33,19 +33,14 @@ export default function Links(props) {
             )
             .then((data) => {
                 setPostData(data);
-                console.log(data);
-                console.log(data[0].box);
+                console.log(data, "BUBHUE");
                 btnRef.current.addEventListener("click", createRipple);
-                document.querySelector(".loaderWrapper").classList.add("fade-out");
-                setTimeout(() => {
-                    document.querySelector(".loaderWrapper").style.zIndex = -1;
-                }, 1000);
 
                 data.map((e, i) => {
                     console.log(e.hintergrundbild);
 
-                    setBox((oldArray) => [...oldArray, data[i].box]);
                     console.log(box);
+                    // eslint-disable-next-line default-case
                     switch (e.colorlist.title) {
                         case "Rot":
                             btnRef.current.style.color = "white";
@@ -102,13 +97,15 @@ export default function Links(props) {
                         case "Weiss":
                             btnRef.current.style.color = "313131";
                             btnRef.current.children[0].style.color = "#313131";
+                            btnRef.current.children[1].style.color = "#313131";
+                            btnRef.current.children[2].style.color = "#313131";
                             setBg({
                                 background: e.colorlist.value,
                                 color: "#313131",
                             });
+
                             break;
                     }
-                    btnRef.current.style.background = e.colorlist.value;
                     btnRef.current.style.background = e.colorlist.value;
 
                     console.log(box);
@@ -147,7 +144,7 @@ export default function Links(props) {
             )}
             {postData &&
                 postData.map((e, i) => (
-                    <div className={`${postData[i].box ? "col-6" : "col-12"} py-2 boxWrapper`}>
+                    <div className={`${postData[i].box ? "col-6" : "col-12"} py-2 `}>
                         {postData[i].display === "file" && (
                             <a
                                 href={postData[i].file}
@@ -155,9 +152,12 @@ export default function Links(props) {
                                 data-id={i}
                                 data-cat="link"
                                 ref={btnRef}
-                                style={bg}
+                                style={{
+                                    background: e.colorlist.value,
+                                }}
                                 download
                                 target="_blank"
+                                rel="noreferrer"
                             >
                                 {postData[i].showTitle && (
                                     <span>
@@ -165,7 +165,10 @@ export default function Links(props) {
                                         <h2>{postData[i].title}</h2>
                                     </span>
                                 )}
-                                <img src={postData[i].hintergrundbild}></img>
+                                <img
+                                    class={postData[i].hintergrundbild ? "" : "d-none"}
+                                    src={postData[i].hintergrundbild}
+                                ></img>
                             </a>
                         )}
                         {postData[i].display === "link" && (
@@ -175,18 +178,24 @@ export default function Links(props) {
                                 data-id={i}
                                 data-cat="link"
                                 ref={btnRef}
-                                style={bg}
+                                style={{
+                                    background: e.colorlist.value,
+                                }}
                             >
                                 {postData[i].showTitle && (
-                                    <span>
+                                    <>
                                         <i class="bi bi-link"></i>
                                         <h2>{postData[i].title}</h2>
-                                    </span>
+                                    </>
+                                    // eslint-disable-next-line react/jsx-no-comment-textnodes
                                 )}
-
-                                <img src={postData[i].hintergrundbild}></img>
+                                <img
+                                    class={postData[i].hintergrundbild ? "" : "d-none"}
+                                    src={postData[i].hintergrundbild}
+                                ></img>
                             </a>
                         )}
+                        {box && console.log(box, "neihei")}
                     </div>
                 ))}
         </>

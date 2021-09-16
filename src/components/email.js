@@ -50,10 +50,11 @@ export default function Email(props) {
                         case "Weiss":
                             btnRef.current.style.color = "313131";
                             btnRef.current.children[0].style.color = "#313131";
+                            btnRef.current.children[1].style.color = "#313131";
                             break;
                     }
                     btnRef.current.style.background = e.colorlist.value;
-                    btnRef.current.style.borderColor = e.colorlist.value;
+                    // btnRef.current.style.borderColor = e.colorlist.value;
                 });
             })
             .catch(console.error);
@@ -66,7 +67,7 @@ export default function Email(props) {
                     <div key={i} className={`${postData[i].box ? "col-6" : "col-12"} py-2 boxWrapper`}>
                         <a
                             href={`mailto:${postData[i].email}`}
-                            className="box p-2 d-flex justify-content-center align-items-center cta"
+                            className="box p-2 d-flex justify-content-center align-items-center"
                             data-id={i}
                             data-cat="call"
                             ref={btnRef}

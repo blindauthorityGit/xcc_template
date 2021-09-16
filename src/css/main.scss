@@ -25,7 +25,7 @@ h2 {
     font-size: 1rem;
     padding: 0;
     margin: 0;
-    letter-spacing: 2px;
+    letter-spacing: 0px;
 }
 
 h3 {
@@ -55,7 +55,6 @@ a {
     overflow: hidden;
     transition: background 400ms;
     outline: 0;
-    border: solid 1px #313131;
     cursor: pointer;
     i {
         font-size: 1.25rem;
@@ -68,6 +67,10 @@ a {
         height: 100%;
         max-width: 100%;
     }
+}
+
+.border-button {
+    border: solid 1px #313131;
 }
 
 span.ripple {
@@ -241,7 +244,7 @@ span.ripple {
 .landingBg {
     width: 100%;
     height: 10rem;
-    // background: aqua;
+    z-index: -1;
     top: 0;
     left: 0;
     position: absolute;
@@ -260,7 +263,7 @@ span.ripple {
         background: white;
         width: 120px;
         height: 120px;
-        z-index: 3;
+        z-index: 1;
         transition: all ease-in-out 200ms;
     }
 }
@@ -334,8 +337,8 @@ span.ripple {
 
 .loader {
     position: absolute;
-    top: calc(50% - 4em);
-    left: calc(50% - 4em);
+    top: calc(50% - 2em);
+    left: calc(50% - 2em);
     width: 6em;
     height: 6em;
     border: 1.1em solid rgba(0, 0, 0, 0.2);
@@ -357,6 +360,20 @@ span.ripple {
     opacity: 0;
 }
 
+.bright-text {
+    color: #adb9c5;
+    i {
+        color: #adb9c5;
+    }
+}
+
+.dark-text {
+    color: #313131;
+    i {
+        color: #313131;
+    }
+}
+
 @keyframes load8 {
     0% {
         transform: rotate(0deg);
@@ -369,6 +386,118 @@ span.ripple {
 .slide-out-top {
     -webkit-animation: slide-out-top 0.25s cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
     animation: slide-out-top 0.25s cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
+}
+
+.slide-in-left {
+    -webkit-animation: slide-in-left 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+    animation: slide-in-left 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+.slide-in-right {
+    -webkit-animation: slide-in-right 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+    animation: slide-in-right 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+.scale-in-center {
+    -webkit-animation: scale-in-center 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+    animation: scale-in-center 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+.fade-in {
+    -webkit-animation: fade-in 1.2s cubic-bezier(0.39, 0.575, 0.565, 1) both;
+    animation: fade-in 1.2s cubic-bezier(0.39, 0.575, 0.565, 1) both;
+}
+
+@-webkit-keyframes fade-in {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+@keyframes fade-in {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@-webkit-keyframes scale-in-center {
+    0% {
+        -webkit-transform: scale(0);
+        transform: scale(0);
+        opacity: 1;
+    }
+    100% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+@keyframes scale-in-center {
+    0% {
+        -webkit-transform: scale(0);
+        transform: scale(0);
+        opacity: 1;
+    }
+    100% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@-webkit-keyframes slide-in-right {
+    0% {
+        -webkit-transform: translateX(1000px);
+        transform: translateX(1000px);
+        opacity: 0;
+    }
+    100% {
+        -webkit-transform: translateX(0);
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+@keyframes slide-in-right {
+    0% {
+        -webkit-transform: translateX(1000px);
+        transform: translateX(1000px);
+        opacity: 0;
+    }
+    100% {
+        -webkit-transform: translateX(0);
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@-webkit-keyframes slide-in-left {
+    0% {
+        -webkit-transform: translateX(-1000px);
+        transform: translateX(-1000px);
+        opacity: 0;
+    }
+    100% {
+        -webkit-transform: translateX(0);
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+@keyframes slide-in-left {
+    0% {
+        -webkit-transform: translateX(-1000px);
+        transform: translateX(-1000px);
+        opacity: 0;
+    }
+    100% {
+        -webkit-transform: translateX(0);
+        transform: translateX(0);
+        opacity: 1;
+    }
 }
 
 @-webkit-keyframes slide-out-top {

@@ -1,6 +1,9 @@
 export function createRipple(event) {
     const button = event.currentTarget;
     console.log("binda");
+    console.log(event.target.parentElement);
+    event.target.parentElement.classList.remove("slide-in-right");
+    event.target.parentElement.classList.remove("slide-in-left");
     const circle = document.createElement("span");
     const diameter = Math.max(button.clientWidth, button.clientHeight);
     const radius = diameter / 2;
