@@ -28,7 +28,7 @@ export default function MyMap(props) {
     useEffect(() => {
         const URL = "https://maps.googleapis.com/maps/api/geocode/json?address=";
         // const KEY = Config.API.key;
-        const KEY = "AIzaSyANZC5zZy_vjuY6zuLsYMYtH3l2Do6IbPo";
+        const KEY = "";
         const CALL = URL + street + " " + city + "&key=" + KEY;
         fetch(CALL)
             .then((response) => response.json())
