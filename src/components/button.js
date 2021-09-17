@@ -23,7 +23,7 @@ export default function Button(props) {
                 }}
                 onClick={props.modal}
             >
-                {props.e.button_settings.icon && <i class={props.icon}></i>}
+                {props.e.button_settings.icon && <i data-id={props.index} class={props.icon}></i>}
                 <h2 data-id={props.index} onClick={props.modal}>
                     {props.data[props.index].button_settings.titel}
                 </h2>

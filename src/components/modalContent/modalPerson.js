@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import sanityClient from "../../client";
 import imageUrlBuilder from "@sanity/image-url";
 import VCFGenerator from "../vcf/vcf-generator";
@@ -8,6 +8,7 @@ export default function ModalBox(props) {
     const [postData, setPostData] = useState(null);
     const [showOverlay, setshowOverlay] = useState(false);
     const builder = imageUrlBuilder(sanityClient);
+    const imgRef = useRef();
 
     function urlFor(source) {
         return builder.image(source);
@@ -32,10 +33,15 @@ export default function ModalBox(props) {
                 setPostData(data);
             })
             .catch(console.error);
+        return () => {
+            console.log("unmounted");
+        };
     }, []);
 
     function imageBigger(e) {
+        console.log(e.target.parentElement);
         let container = e.target.parentElement;
+        container.classList.remove("scale-in-center");
         container.style.width = "85vw";
         container.style.height = "60vh";
         container.style.top = "-8%";
@@ -56,10 +62,11 @@ export default function ModalBox(props) {
             {showOverlay && <div className="overlayBlack slide-in-top" id="overlayBlack"></div>}
             {postData && (
                 <div className="container">
-                    <div className="d-flex justify-content-center" id="portrait">
+                    <div className="d-flex justify-content-center scale-in-center" id="portrait">
                         {!postData[props.id].poster && (
                             <img
                                 src={defaultPerson}
+                                ref={imgRef}
                                 onClick={(e) => {
                                     imageSmaller(e);
                                 }}
@@ -71,6 +78,7 @@ export default function ModalBox(props) {
                             (showOverlay ? (
                                 <img
                                     src={urlFor(postData[props.id].poster)}
+                                    ref={imgRef}
                                     onClick={(e) => {
                                         imageSmaller(e);
                                     }}
@@ -79,6 +87,7 @@ export default function ModalBox(props) {
                             ) : (
                                 <img
                                     src={urlFor(postData[props.id].poster)}
+                                    ref={imgRef}
                                     onClick={(e) => {
                                         imageBigger(e);
                                     }}
@@ -86,14 +95,14 @@ export default function ModalBox(props) {
                                 />
                             ))}
                     </div>
-                    <div className="mainText text-center mt-5">
+                    <div className="mainText text-center mt-5 scale-in-ver-top">
                         <h3 className="pt-5">
                             {postData[props.id].vorname} {postData[props.id].nachname}
                         </h3>
                         <h4>{postData[props.id].position} </h4>
                     </div>
                     {/* FACEBOOK */}
-                    <div className="socialMedia d-flex  mb-3 mt-4">
+                    <div className="socialMedia d-flex  mb-3 mt-4 scale-in-ver-top">
                         {postData[props.id].socialmedia != undefined && (
                             <div className="facebook">
                                 {postData[props.id].socialmedia.facebook && (
@@ -147,7 +156,7 @@ export default function ModalBox(props) {
 
                     <hr />
 
-                    <div className="kontakt text-center">
+                    <div className="kontakt text-center slide-in-left">
                         {postData[props.id].kontakt != undefined && (
                             <div className="email">
                                 {postData[props.id].kontakt.email && <span>{postData[props.id].kontakt.email}</span>}
@@ -173,7 +182,7 @@ export default function ModalBox(props) {
                         )}
                     </div>
 
-                    <div className="adresse text-center">
+                    <div className="adresse text-center slide-in-right">
                         <br />
                         <div className="right">
                             {postData[props.id].adresse != undefined && (
