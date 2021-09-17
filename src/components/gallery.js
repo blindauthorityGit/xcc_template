@@ -29,7 +29,7 @@ export default function Gallery(props) {
         createRipple(i);
         setTimeout(() => {
             setAnimation("slide-in-top");
-            setId(i);
+            setId(Number(i.target.dataset.id));
             setShowModal(true);
         }, 200);
     }

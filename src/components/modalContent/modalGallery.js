@@ -37,6 +37,8 @@ export default function ModalGallery(props) {
             )
             .then((data) => {
                 setPostData(data);
+                console.log(data, "GALERIE DATA");
+
                 setHero(
                     urlFor(data[myId].images[0])
                         .width(window.innerWidth)

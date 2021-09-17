@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
 
-import logo from "./logo.svg";
 import "./App.css";
 import "./css/main.css";
 
@@ -12,11 +11,22 @@ import Call from "./components/callme.js";
 import Links from "./components/link.js";
 import Email from "./components/email.js";
 
+import sanityClient from "./client";
 import Sponsored from "./components/sponsored.js";
 
 function App() {
     useEffect(() => {
-        console.log("DOM LOADED");
+        sanityClient
+            .fetch(
+                `*[_type == 'siteSettings']{
+                titleApp
+              }
+              `
+            )
+            .then((data) => {
+                document.title = `${data[0].titleApp} - XCC Connect`;
+            })
+            .catch(console.error);
     }, []);
 
     return (
