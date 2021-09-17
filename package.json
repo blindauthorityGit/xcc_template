@@ -2,7 +2,7 @@
   "name": "xcc",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://sabocon.xcc-connect.com/",
+  "homepage": "https://www.xcc-connect.com/test",
   "dependencies": {
     "@sanity/block-content-to-react": "^3.0.0",
     "@sanity/client": "^2.13.0",
@@ -13,6 +13,7 @@
     "get-youtube-id": "^1.0.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-google-maps": "^9.4.5",
     "react-responsive-carousel": "^3.2.19",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",

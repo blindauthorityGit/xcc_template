@@ -109,6 +109,10 @@
   }
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 html,
 body {
   font-family: "Poppins", sans-serif;
@@ -240,7 +244,7 @@ span.ripple {
   left: 0;
   z-index: 1;
   top: 0;
-  opacity: 0.8;
+  opacity: 0.6;
 }
 
 .overlayBlack {
@@ -557,6 +561,29 @@ span.ripple {
   animation: scale-in-ver-top 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
 }
 
+.fade-out {
+  -webkit-animation: fade-out 0.2s ease-out both;
+  animation: fade-out 0.2s ease-out both;
+}
+
+@-webkit-keyframes fade-out {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes fade-out {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
 @-webkit-keyframes scale-in-ver-top {
   0% {
     -webkit-transform: scaleY(0);
@@ -709,29 +736,6 @@ span.ripple {
   100% {
     -webkit-transform: translateY(-1000px);
     transform: translateY(-1000px);
-    opacity: 0;
-  }
-}
-
-.fade-out {
-  -webkit-animation: fade-out 1s ease-out both;
-  animation: fade-out 1s ease-out both;
-}
-
-@-webkit-keyframes fade-out {
-  0% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-  }
-}
-
-@keyframes fade-out {
-  0% {
-    opacity: 1;
-  }
-  100% {
     opacity: 0;
   }
 }

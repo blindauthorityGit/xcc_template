@@ -3,6 +3,7 @@ import sanityClient from "../../client";
 import imageUrlBuilder from "@sanity/image-url";
 import VCFGenerator from "../vcf/vcf-generator";
 import defaultPerson from "../../assets/imgs/person-fill.svg";
+import Map from "../controller/maps.js";
 
 export default function ModalBox(props) {
     const [postData, setPostData] = useState(null);
@@ -39,7 +40,6 @@ export default function ModalBox(props) {
     }, []);
 
     function imageBigger(e) {
-        console.log(e.target.parentElement);
         let container = e.target.parentElement;
         container.classList.remove("scale-in-center");
         container.style.width = "85vw";
@@ -205,7 +205,7 @@ export default function ModalBox(props) {
                         </div>
                     </div>
 
-                    <div className="row mt-4">
+                    <div className="row mt-4 scale-in-ver-top">
                         <div className="col-12 ">
                             <VCFGenerator
                                 firstName={postData[props.id].vorname}
@@ -226,6 +226,7 @@ export default function ModalBox(props) {
                             </a>
                         </div>
                     </div>
+                    <Map id={props.id}></Map>
                 </div>
             )}
         </div>

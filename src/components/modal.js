@@ -10,7 +10,7 @@ export default function ModalBox(props) {
     const [categourie, setCategourie] = useState(props.cat);
 
     useEffect(() => {
-        window.scrollTo(0, 0);
+        window.scrollTo({ top: 0, behavior: "smooth" });
     }, []);
 
     function close() {
@@ -18,6 +18,7 @@ export default function ModalBox(props) {
         setTimeout(() => {
             props.changeState(false);
         }, 300);
+        document.querySelector("#overlay").classList.add("fade-out");
     }
 
     return (
