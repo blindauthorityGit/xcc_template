@@ -174,7 +174,7 @@ export default function ModalBox(props) {
                         {postData[props.id].kontakt != undefined && (
                             <div className="website">
                                 {postData[props.id].kontakt.website && (
-                                    <a href={postData[props.id].kontakt.website}>
+                                    <a className="profile_link" href={postData[props.id].kontakt.website}>
                                         {postData[props.id].kontakt.website}
                                     </a>
                                 )}
@@ -205,7 +205,11 @@ export default function ModalBox(props) {
                         </div>
                     </div>
 
-                    <div className="row mt-4 scale-in-ver-top">
+                    <div className="fade-in-delayed my-4">
+                        <Map id={props.id}></Map>
+                    </div>
+
+                    <div className="row mt-4 scale-in-ver-top-delayed">
                         <div className="col-12 ">
                             <VCFGenerator
                                 firstName={postData[props.id].vorname}
@@ -219,14 +223,13 @@ export default function ModalBox(props) {
                                 email={postData[props.id].kontakt.email}
                             ></VCFGenerator>
                         </div>
-                        <div className=" col-12 mt-2">
+                        <div className=" col-12 mt-2 mb-5">
                             <a href={`tel:${postData[props.id].kontakt.telefon}`} className="call button">
                                 <i class="bi bi-telephone me-2"></i>
                                 CALL
                             </a>
                         </div>
                     </div>
-                    <Map id={props.id}></Map>
                 </div>
             )}
         </div>

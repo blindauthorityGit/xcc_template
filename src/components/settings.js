@@ -127,7 +127,7 @@ export default function Settings(props) {
                             id="landingBg"
                         ></div>
                         <h1 className="mt-3 scale-in-ver-top">{postData[0].headline}</h1>
-                        <div className={`mt-3 mb-5 block scale-in-ver-top ${fullBg ? "d-none" : ""}`}>
+                        <div className={`mt-3 mb-4 block scale-in-ver-top ${fullBg ? "d-none" : ""}`}>
                             <BlockContent blocks={postData[0].richtext}></BlockContent>
                         </div>
                         {/* <hr /> */}

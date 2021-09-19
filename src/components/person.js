@@ -62,14 +62,17 @@ export default function Person(props) {
             )}
             {postData &&
                 postData.map((e, i) => (
-                    <Button
-                        index={i}
-                        e={e}
-                        icon="bi bi-person-circle"
-                        cat="person"
-                        data={postData}
-                        modal={showModalSwitch}
-                    ></Button>
+                    <>
+                        <Button
+                            index={i}
+                            e={e}
+                            icon="bi bi-person-circle"
+                            cat="person"
+                            data={postData}
+                            modal={showModalSwitch}
+                        ></Button>
+                        {/* <div className="thumbnail"></div> */}
+                    </>
                 ))}
         </>
     );

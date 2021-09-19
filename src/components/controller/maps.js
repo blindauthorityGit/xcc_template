@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { GoogleMap, withScriptjs, withGoogleMap, Marker, InfoWindow } from "react-google-maps";
 import mapStyle from "./mapstyle";
 import sanityClient from "../../../src/client";
+import env from "react-dotenv";
 
 export default function MyMap(props) {
     const [selectedPos, setSelectedPos] = useState(null);
@@ -10,6 +11,8 @@ export default function MyMap(props) {
     const [long, setLong] = useState(0);
     const [street, setStreet] = useState(null);
     const [city, setCity] = useState(null);
+    const [showMap, setShowMap] = useState(null);
+    const KEY = process.env.REACT_APP_MAPS_API;
 
     useEffect(() => {
         sanityClient
@@ -21,23 +24,24 @@ export default function MyMap(props) {
                 setPostData(data);
                 setStreet(data[props.id].adresse.strasse);
                 setCity(data[props.id].adresse.ort);
+                console.log(data[props.id].adresse.strasse, data[props.id].adresse.ort);
             })
             .catch(console.error);
     }, []);
 
     useEffect(() => {
         const URL = "https://maps.googleapis.com/maps/api/geocode/json?address=";
-        // const KEY = Config.API.key;
-        const KEY = "";
         const CALL = URL + street + " " + city + "&key=" + KEY;
         fetch(CALL)
             .then((response) => response.json())
             .then((data) => {
                 setLat(data.results[0].geometry.location.lat);
                 setLong(data.results[0].geometry.location.lng);
+                console.log(data.results[0].geometry.location.lng, data.results[0].geometry.location.lat);
+                setShowMap(true);
             })
             .catch(console.error);
-    }, [street]);
+    }, [city]);
 
     const Map = () => {
         return (
@@ -70,11 +74,15 @@ export default function MyMap(props) {
     const WrappedMap = withScriptjs(withGoogleMap(Map));
 
     return (
-        <WrappedMap
-            googleMapURL={`https://maps.googleapis.com/maps/api/js?key=AIzaSyCmiEXV0BrJdbGVXXeCNdFB5vs-YA-vfmU&v=3.exp&libraries=geometry,drawing,places`}
-            loadingElement={<div style={{ height: `100%` }} />}
-            containerElement={<div style={{ height: `300px` }} />}
-            mapElement={<div style={{ height: `100%` }} />}
-        ></WrappedMap>
+        <>
+            {showMap && (
+                <WrappedMap
+                    googleMapURL={`https://maps.googleapis.com/maps/api/js?key=AIzaSyCmiEXV0BrJdbGVXXeCNdFB5vs-YA-vfmU&v=3.exp&libraries=geometry,drawing,places`}
+                    loadingElement={<div style={{ height: `100%` }} />}
+                    containerElement={<div style={{ height: `200px` }} />}
+                    mapElement={<div style={{ height: `100%` }} />}
+                ></WrappedMap>
+            )}
+        </>
     );
 }

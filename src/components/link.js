@@ -5,6 +5,7 @@ import ModalBox from "./modal.js";
 import Overlay from "./overlay.js";
 import { createRipple } from "./controller/rippler.js";
 import { color } from "./controller/colors.js";
+import Button_Link from "../components/button_link.js";
 
 export default function Links(props) {
     const [postData, setPostData] = useState(null);
@@ -195,7 +196,6 @@ export default function Links(props) {
                                 ></img>
                             </a>
                         )}
-                        {box && console.log(box, "neihei")}
                     </div>
                 ))}
         </>

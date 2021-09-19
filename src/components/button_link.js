@@ -1,9 +1,11 @@
-export default function Button(props) {
+export default function Button_Link(props) {
     return (
-        <div
+        <a
             className={`${props.data[props.index].button_settings.box ? "col-6" : "col-12"} pb-2 gx-2 ${
                 props.index % 2 === 0 ? "slide-in-left" : "slide-in-right"
             } `}
+            href={props.href}
+            download={props.download}
         >
             <div
                 className={`${
@@ -28,6 +30,6 @@ export default function Button(props) {
                     {props.data[props.index].button_settings.titel}
                 </h2>
             </div>
-        </div>
+        </a>
     );
 }
